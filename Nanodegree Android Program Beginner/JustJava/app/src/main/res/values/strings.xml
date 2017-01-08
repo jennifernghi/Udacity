@@ -1,0 +1,22 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Just Java</string>
+    <string name="toppings">Toppings</string>
+    <string name="name">Name</string>
+    <string name="whipped_cream">Whipped Cream</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="quantity_header">quantity</string>
+    <string name="quantity">2</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="order">Order</string>
+    <!-- part after : not stranslated-->
+    <!--
+      Name for the order summary. It will be shown in the format of "Name: Amy" where Amy is the
+      user's name. [CHAR LIMIT=NONE]
+    -->
+    <string name="order_summary_name">Name:&#160;<xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="order_summary_whipped_cream">Add whipped cream: &#160;<xliff:g id="addWhippedCream" example="true">%b</xliff:g> </string>
+    <string name="order_summary_chocolate">Add chocolate: &#160;<xliff:g id="addChocolate" example="true">%b</xliff:g> </string>
+    <string name="order_summary_quantity">Quantity: &#160;<xliff:g id="quantity" example="2">%s</xliff:g></string>
+    <string name="order_summary_total">Total: &#160;<xliff:g id="total" example="$10">$%s</xliff:g> </string>
+    <string name="email_subject">Coffee Order Summary for &#160;<xliff:g id="name" example="Amy">%s</xliff:g></string>
+</resources>

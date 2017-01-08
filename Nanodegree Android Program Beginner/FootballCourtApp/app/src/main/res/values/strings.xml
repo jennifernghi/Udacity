@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Football Court App</string>
+    <string name="teamA">Team A</string>
+    <string name="teamB">Team B</string>
+    <string name="score">0</string>
+    <string name="addSixPoints">+6 Points</string>
+    <string name="addThreePoints">+3 Points</string>
+    <string name="addTwoPoints">+2 Points</string>
+    <string name="addOnePoint">+1    Point</string>
+</resources>

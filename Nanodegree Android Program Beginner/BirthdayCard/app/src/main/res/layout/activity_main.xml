@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.example.android.birthdaycard.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/img_banner"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:src="@drawable/banner"
+        android:layout_marginTop="12dp"/>
+    <TextView
+        android:id="@+id/text_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  To Hai and Ha, happy birthday! Wish you both all the best."
+        android:layout_below="@id/img_banner"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="bold"
+        android:paddingTop="12dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@android:color/black" />
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From Jennifer."
+        android:layout_below="@id/text_header"
+        android:layout_alignParentRight="true"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="bold"
+        android:paddingTop="12dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@android:color/black" />
+    <ImageView
+        android:id="@+id/img_ribbon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ribbon"
+        android:layout_below="@id/text_name"
+        android:scaleType="centerCrop"/>
+
+</RelativeLayout>

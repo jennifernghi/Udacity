@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Just Java</string>
+    <string name="thank_you">Cam on</string>
+    <string name="whipped_cream">Kem</string>
+    <string name="toppings">Toppings</string>
+    <string name="quantity_header">So luong</string>
+    <string name="order_summary_name">Ten Nguoi Mua: &#160;<xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="name">Ten Nguoi Mua</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="order_summary_header">Tom Tat Hoa Don</string>
+    <string name="quantity">2</string>
+    <string name="order_summary_chocolate">Them chocolate?&#160;<xliff:g id="addChocolate" example="true">%b</xliff:g></string>
+    <string name="order_summary_total">Tong cong:&#160;<xliff:g id="total" example="$10">%s</xliff:g> </string>
+    <string name="order_summary_whipped_cream">Them kem?&#160;<xliff:g id="addWhippedCream" example="true">%b</xliff:g></string>
+    <string name="order_summary_quantity">So luong:&#160;<xliff:g id="quantity" example="2">%s</xliff:g></string>
+    <string name="order">Dat hang</string>
+    <string name="email_subject">Don hang cho&#160;<xliff:g id="name" example="Amy">%s</xliff:g> </string>
+</resources>
