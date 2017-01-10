@@ -15,34 +15,34 @@
  */
 package com.example.android.quakereport;
 
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
+import android.content.Loader;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity {
+public class EarthquakeActivity extends AppCompatActivity
+        implements LoaderCallbacks<List<EarthQuake>> {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
     private final String EARTHQUAKE_URL = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
-    List<EarthQuake> earthQuakes = null;
-    private  EarthQuakeAdapter mAdapter = null;
+
+    private EarthQuakeAdapter mAdapter = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        // Create a fake list of earthquake locations.
-        //final ArrayList<EarthQuake> earthquakes = QueryUtils.extractEarthquakes();
-        new EarthquakeTask().execute(EARTHQUAKE_URL);
 
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
@@ -64,7 +64,42 @@ public class EarthquakeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        // Get a reference to the LoaderManager, in order to interact with loaders.
+        LoaderManager loaderManager = getLoaderManager();
+        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+        // because this activity implements the LoaderCallbacks interface).
+        loaderManager.initLoader(1, null, this);
     }
+
+    @Override
+    public Loader<List<EarthQuake>> onCreateLoader(int i, Bundle bundle) {
+        // Create a new loader for the given URL
+        return new EarthquakeLoader(this, EARTHQUAKE_URL);
+
+    }
+
+
+    @Override
+    public void onLoadFinished(Loader<List<EarthQuake>> loader, List<EarthQuake> earthquakes) {
+        // TODO: Update the UI with the result
+        // Clear the adapter of previous earthquake data
+        mAdapter.clear();
+
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (earthquakes != null && !earthquakes.isEmpty()) {
+            mAdapter.addAll(earthquakes);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<EarthQuake>> loader) {
+        // TODO: Loader reset, so we can clear out our existing data.
+        mAdapter.clear();
+    }
+
+
     /**
      * {@link AsyncTask} to perform the network request on a background thread, and then
      * update the UI with the list of earthquakes in the response.
@@ -79,7 +114,7 @@ public class EarthquakeActivity extends AppCompatActivity {
      * Then onPostExecute() is passed the result of doInBackground() method, but runs on the
      * UI thread, so it can use the produced data to update the UI.
      */
-    private class EarthquakeTask extends AsyncTask<String, Void, List<EarthQuake>> {
+    /*private class EarthquakeTask extends AsyncTask<String, Void, List<EarthQuake>> {
 
         @Override
         protected List<EarthQuake> doInBackground(String... urls)  {
@@ -106,5 +141,5 @@ public class EarthquakeActivity extends AppCompatActivity {
                 mAdapter.addAll(earthQuakes);
             }
         }
-    }
+    }*/
 }
