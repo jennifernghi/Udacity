@@ -1,5 +1,6 @@
 package com.example.android.quakereport;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jennifernghinguyen on 1/6/17.
@@ -112,6 +114,10 @@ public final class QueryUtils {
      */
     public static ArrayList<EarthQuake> extractEarthquakes(String response) {
         Log.i(LOG_TAG, "in extractEarthquakes()");
+
+        if(TextUtils.isEmpty(response)){
+            return null;
+        }
         // Create an empty ArrayList that we can start adding earthquakes to
         ArrayList<EarthQuake> earthquakes = new ArrayList<>();
 
@@ -144,6 +150,28 @@ public final class QueryUtils {
         }
 
         // Return the list of earthquakes
+        return earthquakes;
+    }
+
+    /**
+     * Query the USGS dataset and return a list of {@link EarthQuake} objects.
+     */
+    public static List<EarthQuake> fetchEarthquakeData(String requestUrl) {
+        // Create URL object
+        URL url = createURL(requestUrl);
+
+        // Perform HTTP request to the URL and receive a JSON response back
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+        }
+
+        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
+        List<EarthQuake> earthquakes = extractEarthquakes(jsonResponse);
+
+        // Return the list of {@link Earthquake}s
         return earthquakes;
     }
 }

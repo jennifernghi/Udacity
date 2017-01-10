@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,16 +39,17 @@ public class EarthquakeActivity extends AppCompatActivity
     private final String EARTHQUAKE_URL = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
 
     private EarthQuakeAdapter mAdapter = null;
+    private TextView mEmptyTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-
+        mEmptyTextView = (TextView) findViewById(R.id.empty_view);
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
-
+        earthquakeListView.setEmptyView(mEmptyTextView);
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new EarthQuakeAdapter(this, new ArrayList<EarthQuake>());
 
@@ -86,6 +88,8 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<List<EarthQuake>> loader, List<EarthQuake> earthquakes) {
+
+        mEmptyTextView.setText(R.string.no_earthquakes);
         // TODO: Update the UI with the result
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
@@ -93,7 +97,7 @@ public class EarthquakeActivity extends AppCompatActivity
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (earthquakes != null && !earthquakes.isEmpty()) {
-            mAdapter.addAll(earthquakes);
+            //mAdapter.addAll(earthquakes);
         }
 
         Log.i(LOG_TAG, "in onLoadFinished()");
