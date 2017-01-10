@@ -17,8 +17,11 @@ package com.example.android.quakereport;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -67,14 +70,25 @@ public class EarthquakeActivity extends AppCompatActivity
                 startActivity(i);
             }
         });
-        // Get a reference to the LoaderManager, in order to interact with loaders.
-        LoaderManager loaderManager = getLoaderManager();
-        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-        // because this activity implements the LoaderCallbacks interface).
-        Log.i(LOG_TAG, "loaderManager loading");
-        loaderManager.initLoader(1, null, this);
-        Log.i(LOG_TAG, "loaderManager loaded");
+
+        ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetWork = cm.getActiveNetworkInfo();
+        if(activeNetWork!=null && activeNetWork.isConnectedOrConnecting()) {
+            // Get a reference to the LoaderManager, in order to interact with loaders.
+            LoaderManager loaderManager = getLoaderManager();
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+            // because this activity implements the LoaderCallbacks interface).
+            Log.i(LOG_TAG, "loaderManager loading");
+            loaderManager.initLoader(1, null, this);
+            Log.i(LOG_TAG, "loaderManager loaded");
+        }else{
+            View loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message
+             mEmptyTextView.setText(R.string.no_internet_connection);
+        }
     }
 
     @Override
@@ -102,7 +116,7 @@ public class EarthquakeActivity extends AppCompatActivity
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (earthquakes != null && !earthquakes.isEmpty()) {
-            //mAdapter.addAll(earthquakes); // no data: test empty view and indicator
+            mAdapter.addAll(earthquakes); // no data: test empty view and indicator
         }
 
         Log.i(LOG_TAG, "in onLoadFinished()");
