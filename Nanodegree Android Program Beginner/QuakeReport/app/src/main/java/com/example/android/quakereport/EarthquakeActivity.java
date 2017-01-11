@@ -99,27 +99,26 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public Loader<List<EarthQuake>> onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
-        Log.i(LOG_TAG, "in onCreateLoader()");
 
-        //using dynamic url
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String minMagnitude = sharedPrefs.getString(
                 getString(R.string.settings_min_magnitude_key),
                 getString(R.string.settings_min_magnitude_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
         Uri baseUri = Uri.parse(EARTHQUAKE_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         uriBuilder.appendQueryParameter("format", "geojson");
         uriBuilder.appendQueryParameter("limit", "10");
         uriBuilder.appendQueryParameter("minmag", minMagnitude);
-        uriBuilder.appendQueryParameter("orderby", "time");
+        uriBuilder.appendQueryParameter("orderby", orderBy);
 
         return new EarthquakeLoader(this, uriBuilder.toString());
-
-        //original, using fixed url
-        // return new EarthquakeLoader(this, EARTHQUAKE_URL);
-
     }
 
 
